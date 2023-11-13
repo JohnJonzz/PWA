@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rasskazov PWA</title>
+    <link rel="stylesheet" href="/css/style.css" />
+	<link rel="stylesheet" href="/css/reset.min.css">
+    <link rel="manifest" href="/manifest.json" />
+	<script>navigator.serviceWorker.register("/serviceworker.js")</script> 
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="Rasskazov PWA" />
+    <meta name="apple-mobile-web-app-title" content="Rasskazov PWA">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" href="/16.ico">
+	<link rel="apple-touch-icon" href="/icons/apple/apple-touch-icon.png" type="image/png" />
+	<link rel="apple-touch-icon" sizes="57x57" href="/icons/apple/57.png" type="image/png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="/icons/apple/114.png" type="image/png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="/icons/apple/72.png" type="image/png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="/icons/apple/144.png" type="image/png" />
+	<link rel="apple-touch-icon" sizes="60x60" href="/icons/apple/60.png" type="image/png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="/icons/apple/120.png" type="image/png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="/icons/apple/76.png" type="image/png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="/icons/apple/152.png" type="image/png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple/180.png" type="image/png" />
+	
+	<script>
+	const CACHE = "pwabuilder-offline";
+
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
+
+workbox.routing.registerRoute(
+  new RegExp('/*'),
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: CACHE
+  })
+);
+	</script>
+	
+	
+</head>
+<body>
+<nav class="menu-activea">
+  <h1>Menu</h1>
+  <ul>
+    <li class="showHome">Home</li>
+    <li class="showEmojis">Emojis</li>
+    <li class="showLog">Log from SW</li>
+    <li class="showContacts">Contacts</li>
+  </ul>
+</nav>
+<main>
+  <section>
+    <div id="content">
+		<div class="menu-trigger"></div>
+		<button id="install-btn">Install</button>
+		<div id='cont'></div>
+	</div>
+  </section>
+</main>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/app.js" defer></script>
+<script src="/pwabuilder.js"></script>
+</body>
+</html>
